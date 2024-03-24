@@ -120,4 +120,44 @@ module.exports = {
 ```
 4. 新增css文件，且必须经过js引入, *.module.css 这样的文件结构会被webpack当做模块css直接引用，很方便。
 
+## 第四阶段
+webpack简单优化，之后会进行复杂优化
+1. 配置mode，output修改webpack.config.js
+```
+{
+  mode: 'none',
+  entry: './index.js',
+  output: {
+    filename: 'index.bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true // 每次build时删除上次build生成的文件
+  },
+}
+```
+2. 开启热更新，方便开发，
+```
+// 安装
+npm i webpack-dev-server -D
+
+// 修改webpack.config.js
+devServer: {
+  server: 'http',
+  static: path.resolve(__dirname, './dist'),
+  compress: true, // 代码压缩，增加gzip
+  port: 4000, // 端口号
+  proxy: [
+    { //代理配置
+      context: ['/api'],
+      target: 'http://localhost:3000',
+    },
+  ],
+  hot: true,
+  // historyApiFallback: true //历史路径
+},
+```
+3. 配置sourcemap，方便开发时定位问题
+```
+devtool: 'eval-source-map',
+```
+
 

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import './index.css';
 import style from './index.module.css';
 
@@ -9,6 +10,16 @@ app.className='app';
 const ele = document.createElement('div');
 ele.className=style.container;
 
+// 创建模块css指定的元素
+const img = new Image();
+
 document.body.appendChild(app);
 document.body.appendChild(ele);
+document.body.appendChild(img);
 console.log('test');
+
+axios.get('/api/banner').then((res) => {
+  console.log(res);
+}).catch((err) => {
+  console.log(err);
+})

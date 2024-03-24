@@ -3,10 +3,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+  mode: 'none',
   entry: './index.js',
   output: {
     filename: 'index.bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    clean: true
   },
   module: {
     rules: [
@@ -39,5 +41,20 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].bundle.css',
     }),
-  ]
+  ],
+  devtool: 'eval-source-map',
+  devServer: {
+    server: 'http',
+    static: path.resolve(__dirname, './dist'),
+    compress: true, // 代码压缩，增加gzip
+    port: 4000, // 端口号
+    proxy: [
+      { //代理配置
+        context: ['/api'],
+        target: 'http://localhost:3000',
+      },
+    ],
+    hot: true,
+	  // historyApiFallback: true //历史路径
+  },
 };
