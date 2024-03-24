@@ -160,4 +160,78 @@ devServer: {
 devtool: 'eval-source-map',
 ```
 
-
+## 第五阶段
+支持常用的一些文件，支持cdn配置
+1. 字体，iconfont
+```
+module: {
+  rules: [
+    {
+      test: /\.(woff|woff2|eot|ttf|otf)$/i,
+      type: 'asset/resource',
+      generator: {
+        filename: 'font/[hash][ext][query]'
+      }
+    },
+  ]
+}
+```
+2. 图片
+```
+{
+  test: /\.(png|svg|jpg|jpeg|gif)$/i,
+  type: 'asset/resource',
+  generator: {
+    filename: 'images/[hash][ext][query]'
+  }
+},
+```
+3. csv, tsv
+```
+npm i csv-loader -D
+{
+  test: /\.(csv|tsv)$/i,
+  use: ['csv-loader']
+},
+```
+4. xml
+```
+npm i xml-loader -D
+{
+  test: /\.xml$/i,
+  use: ['xml-loader']
+},
+```
+5. toml
+```
+npm i toml -D
+{
+  test: /\.toml$/i,
+  type: 'json',
+  parser: {
+    parse: toml.parse,
+  },
+},
+```
+6. yaml
+```
+npm i yamljs -D
+{
+  test: /\.yaml$/i,
+  type: 'json',
+  parser: {
+    parse: yaml.parse,
+  },
+},
+```
+7. json5
+```
+npm i json5 -D
+{
+  test: /\.json5$/i,
+  type: 'json',
+  parser: {
+    parse: json5.parse,
+  },
+},
+```

@@ -2,9 +2,13 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const toml = require('toml');
+const yaml = require('yamljs');
+const json5 = require('json5');
+
 module.exports = {
   mode: 'none',
-  entry: './index.js',
+  entry: './src/index.js',
   output: {
     filename: 'index.bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -28,6 +32,49 @@ module.exports = {
           },
           'postcss-loader', // 和autoprefix 配合做css兼容处理
         ],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'font/[hash][ext][query]'
+        }
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[hash][ext][query]'
+        }
+      },
+      {
+        test: /\.(csv|tsv)$/i,
+        use: ['csv-loader']
+      },
+      {
+        test: /\.xml$/i,
+        use: ['xml-loader']
+      },
+      {
+        test: /\.toml$/i,
+        type: 'json',
+        parser: {
+          parse: toml.parse,
+        },
+      },
+      {
+        test: /\.yaml$/i,
+        type: 'json',
+        parser: {
+          parse: yaml.parse,
+        },
+      },
+      {
+        test: /\.json5$/i,
+        type: 'json',
+        parser: {
+          parse: json5.parse,
+        },
       },
     ],
   },
