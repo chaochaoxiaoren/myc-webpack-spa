@@ -35,3 +35,32 @@ module.exports = {
 }
 ```
 
+## 第二阶段
+> 明确当前是单页面应用，且不使用react, vue
+1. 添加html插件
+```
+# 安装html插件，可以自动生成也可以使用模版
+npm i html-webpack-plugin -D
+```
+2. 新增html模版，public/index.html
+3. 配置webpack.config.js文件
+```
+...
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  ...
+  plugins: [
+    // 配置HtmlWebpackPlugin
+    new HtmlWebpackPlugin({
+      template: './public/index.html', // 模板文件
+      filename: 'index.html', // 生成文件名
+      inject: 'body', // 在哪个标签引入
+    }),
+  ]
+};
+```
+
+
+
+
