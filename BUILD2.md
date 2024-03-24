@@ -8,3 +8,27 @@ npm i webpack-merge -D
 ```
 2. 拆分webpack.config.js，将配置文件根据环境env使用
 
+## 第二阶段
+不对js做处理的话，编译打包的js中新语法和api没有办法在老版本浏览器中使用，会报错。
+1. 安装babel, 配置不同的babel插件
+```
+npm i babel-loader @babel/core @babel/plugin-transform-runtime @babel/preset-env -D
+
+// 配置webpack.config.common.js
+{
+  test: /\.js$/i,
+  include: path.resolve(__dirname, 'src'),
+  loader: 'babel-loader',
+  options: {
+    presets: ['@babel/preset-env'],
+    plugins: [['@babel/plugin-transform-runtime']],
+  },
+},
+```
+2. 配置.babelrc
+```
+{
+  "presets": ["@babel/preset-env"]
+}
+```
+
