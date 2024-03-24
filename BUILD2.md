@@ -32,3 +32,6 @@ npm i babel-loader @babel/core @babel/plugin-transform-runtime @babel/preset-env
 }
 ```
 
+## 总结
+现在已经可以实现一个简单的webpack单页面项目。之后可以继续向这个项目添加依赖实现功能。
+
